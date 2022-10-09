@@ -21,7 +21,7 @@ export class BookmarkController {
 
   @Get('/')
   getBookmarks(@GetUser('id') userId: number) {
-    return this.bookmarkService.getBookmarks();
+    return this.bookmarkService.getBookmarks(userId);
   }
 
   @Post('/')
@@ -29,7 +29,7 @@ export class BookmarkController {
     @GetUser('id') userId: number,
     @Body() createBoookmarkDto: CreateBookmarkDto,
   ) {
-    return this.bookmarkService.createBookmark();
+    return this.bookmarkService.createBookmark(userId, createBoookmarkDto);
   }
 
   @Get('/:id')
@@ -37,7 +37,7 @@ export class BookmarkController {
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return this.bookmarkService.getBookmarkById();
+    return this.bookmarkService.getBookmarkById(userId, id);
   }
 
   @Patch('/:id')
@@ -46,7 +46,7 @@ export class BookmarkController {
     @Body() updateBookmarkDto: UpdateBookmarkDto,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return this.bookmarkService.editBookmarkById();
+    return this.bookmarkService.editBookmarkById(userId, id, updateBookmarkDto);
   }
 
   @Delete('/:id')
@@ -54,6 +54,6 @@ export class BookmarkController {
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return this.bookmarkService.deleteBookmarkById();
+    return this.bookmarkService.deleteBookmarkById(userId, id);
   }
 }
