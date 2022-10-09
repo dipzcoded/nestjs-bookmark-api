@@ -68,7 +68,7 @@ export class AuthService implements AuthInterface {
     };
 
     return this.jwtService.signAsync(payload, {
-      expiresIn: '15m',
+      expiresIn: '1hr',
       secret: this.configService.get('JWT_SECRET'),
     });
   }

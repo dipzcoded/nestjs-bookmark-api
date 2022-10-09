@@ -16,7 +16,15 @@ export class BookmarkService implements bookmarkInterface {
         userId,
       },
       include: {
-        user: true,
+        user: {
+          select: {
+            email: true,
+            firstName: true,
+            lastName: true,
+            createdAt: true,
+            id: true,
+          },
+        },
       },
     });
 
@@ -34,9 +42,21 @@ export class BookmarkService implements bookmarkInterface {
         id: bookmarkId,
       },
       include: {
-        user: true,
+        user: {
+          select: {
+            email: true,
+            firstName: true,
+            lastName: true,
+            createdAt: true,
+            id: true,
+          },
+        },
       },
     });
+
+    if (!bookmark) {
+      throw new BadRequestException('bookmark does not exist');
+    }
 
     if (bookmark.userId !== userId) {
       throw new BadRequestException(
@@ -57,6 +77,17 @@ export class BookmarkService implements bookmarkInterface {
       data: {
         ...createBoookmarkDto,
         userId: userId,
+      },
+      include: {
+        user: {
+          select: {
+            email: true,
+            firstName: true,
+            lastName: true,
+            createdAt: true,
+            id: true,
+          },
+        },
       },
     });
 
@@ -80,7 +111,15 @@ export class BookmarkService implements bookmarkInterface {
           ...updateBookmarkDto,
         },
         include: {
-          user: true,
+          user: {
+            select: {
+              email: true,
+              firstName: true,
+              lastName: true,
+              createdAt: true,
+              id: true,
+            },
+          },
         },
       });
 
